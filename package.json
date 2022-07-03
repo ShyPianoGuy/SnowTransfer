@@ -18,6 +18,7 @@
     "microservice bot"
   ],
   "scripts": {
+    "preinstall": "npm run build:src",
     "build:src": "tsc -p .",
     "build:docs": "typedoc --name SnowTransfer --excludeExternals --sort static-first --sort alphabetical"
   },
