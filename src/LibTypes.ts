@@ -103,8 +103,8 @@ export type TRole = {
 }
 
 export interface TPermissionOverwrite {
-  allow: number,
-  deny: number,
+  allow: string,
+  deny: string,
   type: 'role' | 'member' | number,
 }
 
