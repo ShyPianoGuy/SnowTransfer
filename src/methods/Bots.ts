@@ -1,4 +1,5 @@
 import Endpoints from "../Endpoints";
+import { TGatewayData, TOAuthApplication } from "../LibTypes";
 
 /**
  * Methods for interacting with bot specific endpoints
@@ -29,7 +30,7 @@ class BotMethods {
 	 * const result = await client.bot.getGateway()
 	 * // result should be something like { url: "wss://gateway.discord.gg" }
 	 */
-	public getGateway(): Promise<{ url: string; }> {
+	public getGateway(): Promise<TGatewayData> {
 		return this.requestHandler.request(Endpoints.GATEWAY, "get", "json");
 	}
 
@@ -42,8 +43,17 @@ class BotMethods {
 	 * const result = await client.bot.getGatewayBot()
 	 * // result should be something like { url: "wss://gateway.discord.gg", shards: 1, session_start_limit: { total: 1000, remaining: 999, reset_after: 14400000, max_concurrency: 1 } }
 	 */
-	public getGatewayBot(): Promise<{ url: string; shards: number; session_start_limit: import("discord-typings").SessionStartLimit; }> {
+	public getGatewayBot(): Promise<TGatewayData> {
 		return this.requestHandler.request(Endpoints.GATEWAY_BOT, "get", "json");
+	}
+
+	 /**
+     * Get the information of an OAuth application
+     * @param appID {String} - Id of the application
+     * @returns {Promise.<OAuthApplication>}
+     */
+    getOAuthApplication(appID?: string): Promise<TOAuthApplication> {
+			return this.requestHandler.request(Endpoints.OAUTH2_APPLICATION(appID || '@me'), 'get', 'json');
 	}
 }
 
