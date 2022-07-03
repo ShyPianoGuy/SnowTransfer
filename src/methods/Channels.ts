@@ -1,5 +1,6 @@
 import Endpoints from "../Endpoints";
 import Constants from "../Constants";
+import { TPermissionOverwrite } from "../LibTypes";
 
 /**
  * Methods for interacting with Channels and Messages
@@ -445,7 +446,13 @@ class ChannelMethods {
 	 * const client = new SnowTransfer("TOKEN")
 	 * client.channel.editChannelPermission("channel id", "user id", { allow: String(1 << 10), type: 1 })
 	 */
-	public async editChannelPermission(channelId: string, permissionId: string, data: Partial<Omit<import("discord-typings").Overwrite, "id">> & { reason?: string; }): Promise<void> {
+
+	public async editChannelPermission(channelId: string, permissionId: string, data: TPermissionOverwrite): Promise<void> {
+		switch (data.type) {
+			case 'role': data.type = 0;
+			case 'member': data.type = 1;
+		}
+
 		return this.requestHandler.request(Endpoints.CHANNEL_PERMISSION(channelId, permissionId), "put", "json", data);
 	}
 

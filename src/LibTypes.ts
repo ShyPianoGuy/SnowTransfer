@@ -97,7 +97,7 @@ export type TRole = {
   color: number,
   hoist: boolean,
   position: number,
-  permissions: number,
+  permissions: bigint,
   managed: boolean,
   mentionable: boolean
 }
@@ -105,7 +105,7 @@ export type TRole = {
 export interface TPermissionOverwrite {
   allow: number,
   deny: number,
-  type: string
+  type: 'role' | 'member' | number,
 }
 
 export interface TAuditLogChange {
